@@ -9,11 +9,11 @@ from utils import *
 class ViolenceClass:
     def __init__(self, version = 0):
         ckpt_path = get_checkpoint_dir(version)
-        if version == 0:
-            self.model = ViolenceClassifier_res18.load_from_checkpoint(ckpt_path)
-        elif version == 1:
-            self.model = ViolenceClassifier_res34.load_from_checkpoint(ckpt_path)
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+        if version == 0:
+            self.model = ViolenceClassifier_res18.load_from_checkpoint(ckpt_path, map_location=self.device)
+        elif version == 1:
+            self.model = ViolenceClassifier_res34.load_from_checkpoint(ckpt_path, map_location=self.device)
         self.model = self.model.to(self.device)
         self.model.eval()
 
